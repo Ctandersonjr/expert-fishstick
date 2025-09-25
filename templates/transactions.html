@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Stock Items Table</title>
+    <title>Transactions{{transaction_id}}</title>
     <style>
         table {
             border-collapse: collapse;
@@ -23,31 +23,37 @@
             background-color: #f2f2f2;
         }
     </style>
+
 </head>
 
 
 <body>
-    <h1 style="text-align: center;">Stock Items</h1>
+
+
+
+    <h1 style="text-align: center;">Transaction #{{transaction_id}} Info</h1>
     <table>
         <thead>
             <tr>
-                <th>Transaction ID</th>
+                <th>Date</th>
                 <th>Ticker</th>
-
+                <th>Price ($)</th>
+                <th>Quantity</th>
             </tr>
         </thead>
         <tbody>
-            {% for row in data %}
-            <tr>
-                <td>
-                    <a href="/transactions/{{ row.transaction_id }}">{{ row.transaction_id }}</a>
-                </td>
-                <td>{{row.ticker}}</td>
 
-                {% endfor %}
+            <tr>
+                <td>{{transaction.date.strftime('%y-%m-%d')}}</td>
+                <td>{{transaction.ticker}}</td>
+                <td>{{"%.2f"|format(transaction.price) }}</td>
+                <td>{{transaction.quantity}}</td>
+            </tr>
+
 
         </tbody>
     </table>
+
 </body>
 
 </html>
