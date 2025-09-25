@@ -33,25 +33,25 @@
 
     <h1 style="text-align: center;">Transaction #{{transaction_id}} Info</h1>
     <table>
-        <thead>
             <tr>
                 <th>Date</th>
-                <th>Ticker</th>
-                <th>Price ($)</th>
-                <th>Quantity</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            <tr>
                 <td>{{transaction.date.strftime('%y-%m-%d')}}</td>
+            </tr>
+    
+            <tr>
+                <th>Ticker</th>
                 <td>{{transaction.ticker}}</td>
+            </tr>
+            <tr>
+                <th>Price ($)</th>
                 <td>{{"%.2f"|format(transaction.price) }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
                 <td>{{transaction.quantity}}</td>
             </tr>
 
 
-        </tbody>
     </table>
 
 </body>
