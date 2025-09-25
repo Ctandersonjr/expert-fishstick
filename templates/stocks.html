@@ -31,21 +31,20 @@
     <table>
         <thead>
             <tr>
-                <th>Date</th>
+                <th>Transaction ID</th>
                 <th>Ticker</th>
-                <th>Price ($)</th>
-                <th>Quantity</th>
+
             </tr>
         </thead>
         <tbody>
             {% for row in data %}
             <tr>
-                <td>{{row.date.strftime('%y-%m-%d')}}</td>
+                <td>
+                    <a href="/transactions/{{ row.transaction_id }}">{{ row.transaction_id }}</a>
+                </td>
                 <td>{{row.ticker}}</td>
-                <td>{{"%.2f"|format(row.price) }}</td>
-                <td>{{row.quantity}}</td>
-            </tr>
-            {% endfor %}
+
+                {% endfor %}
 
         </tbody>
     </table>
