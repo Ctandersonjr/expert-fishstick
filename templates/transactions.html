@@ -28,15 +28,13 @@
 
 
 <body>
-    <h1 style="text-align: center;">Transactions</h1>
 
 
 
-    <h1 style="text-align: center;">f"Transaction #{{transaction_id[:]}} info"</h1>
+    <h1 style="text-align: center;">Transaction #{{transaction_id}} Info</h1>
     <table>
         <thead>
             <tr>
-                <th>Transaction ID</th>
                 <th>Date</th>
                 <th>Ticker</th>
                 <th>Price ($)</th>
@@ -44,15 +42,14 @@
             </tr>
         </thead>
         <tbody>
-            {% for row in data %}
+
             <tr>
-                <td>{{row.transaction_id}}</td>
-                <td>{{row.date.strftime('%y-%m-%d')}}</td>
-                <td>{{row.ticker}}</td>
-                <td>{{"%.2f"|format(row.price) }}</td>
-                <td>{{row.quantity}}</td>
+                <td>{{transaction.date.strftime('%y-%m-%d')}}</td>
+                <td>{{transaction.ticker}}</td>
+                <td>{{"%.2f"|format(transaction.price) }}</td>
+                <td>{{transaction.quantity}}</td>
             </tr>
-            {% endfor %}
+
 
         </tbody>
     </table>
