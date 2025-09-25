@@ -16,7 +16,6 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 
 from flask import Flask, render_template, abort
-
 app = Flask(__name__)
 
 Stock_Items = [
