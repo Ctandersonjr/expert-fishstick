@@ -55,12 +55,13 @@ def stocks() -> str:
     return render_template("stocks.html", data=Stock_Items)
 
 
-@app.route("/transactions/<int:transaction_id>")
+@app.route("/transactions/<int:transaction_id>", methods=["GET"])
 def transactions(transaction_id) -> str:
     if 0 <= transaction_id < len(Stock_Items):
         transaction_details = Stock_Items[transaction_id]
         return render_template("transactions.html", transaction=transaction_details, transaction_id=transaction_id)
     return abort(404)
+
 
 
 if __name__ == "__main__":
