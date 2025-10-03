@@ -14,10 +14,12 @@ Directions:
 
 from datetime import datetime
 from html import escape
+
 from zoneinfo import ZoneInfo
 
 from flask import Flask, render_template, abort
 from flask import request, redirect
+from werkzeug.wrappers import Response as WerkzeugResponse
 
 app = Flask(__name__)
 
@@ -53,27 +55,26 @@ Stock_Items = [
 ]
 
 
-def get_item_component(item_text):
-    safe_text = escape(item_text)
+def get_item_component(transaction):
     return f"""
         <li>
         <form action="/" method="post" style="display:inline">
-            <input type="hidden" name="item_del" value="{safe_text}">
+            <input type="hidden" name="del_item" value="{transaction['transaction_id']}">
             <input type="submit" value="Mark Complete">
-            <span>{safe_text}</span>
+            <span>{escape(transaction['ticker'])} - {transaction['quantity']} @ {transaction['price']}</span>
         </form>
         </li>
     """
 
 
 @app.route("/", methods=["GET", "POST"])
-def stocks() -> str:
+def stocks() -> str | WerkzeugResponse:
     global Stock_Items
     if request.method == "POST":
         ticker = request.form.get("ticker")
         price = request.form.get("price")
         quantity = request.form.get("quantity")
-        del_item = request.form.get("item_del")
+        del_item = request.form.get("del_item")
 
         if ticker and price and quantity:
             try:
@@ -96,7 +97,7 @@ def stocks() -> str:
                 ]
             except ValueError:
                 pass
-        return redirect("/", code= 301)
+        return redirect("/", code=302)
 
     return render_template("stocks.html", data=Stock_Items)
 
