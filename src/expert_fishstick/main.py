@@ -96,7 +96,7 @@ def stocks() -> str:
                 ]
             except ValueError:
                 pass
-        return redirect("/", code= 302)
+        return redirect("/", code= 301)
 
     return render_template("stocks.html", data=Stock_Items)
 
