@@ -37,22 +37,35 @@
             </tr>
         </thead>
         <tbody>
-            {% for row in data %}
+            {% for row in data %} 
             <tr>
                 <td>
                     <a href="/transactions/{{ row.transaction_id }}">{{ row.transaction_id }}</a>
                 </td>
-                <td>{{row.ticker}}</td>
-
+                <td>
+                    {{row.ticker}}
+                </td>
+            </tr>
                 {% endfor %}
 
         </tbody>
     </table>
 
-    <form action="/" method="post">
-        <input type="text" name="item_add">
+    <h2>Add Stock</h2>
+    <form action="/" method="POST">
+        <label for="ticker">Ticker:</label>
+        <input type="text" id="ticker" name="ticker" required><br>
+
+        <label for="price">Price:</label>
+        <input type="number" step="100.00" id="price" name="price" required><br>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quanity" required><br>
+
         <input type="submit" value="Add Item">
     </form>
+
+
 </body>
 
 </html>
