@@ -87,6 +87,8 @@ def labels():
     price = request.form.get("price")
     quantity = request.form.get("quantity")
 
+
+
     new_transaction = {
         "date": datetime.now(tz=ZoneInfo("America/Indiana/Indianapolis")),
         "price": float(price),
