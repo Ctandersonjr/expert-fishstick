@@ -59,53 +59,54 @@ def get_item_component(transaction):
     return f"""
         <li>
         <form action="/" method="post" style="display:inline">
-            <input type="hidden" name="del_item" value="{transaction['transaction_id']}">
+            <input type="hidden" name="del_item" value="{transaction["transaction_id"]}">
             <input type="submit" value="Mark Complete">
-            <span>{escape(transaction['ticker'])} - {transaction['quantity']} @ {transaction['price']}</span>
+            <span>{escape(transaction["ticker"])} - {transaction["quantity"]} @ {transaction["price"]}</span>
         </form>
         </li>
     """
 
 
-@app.route("/", methods=["GET", "POST"])
-def stocks() -> str | WerkzeugResponse:
-    global Stock_Items
-    if request.method == "POST":
-        ticker = request.form.get("ticker")
-        price = request.form.get("price")
-        quantity = request.form.get("quantity")
-        del_item = request.form.get("del_item")
-
-        if ticker and price and quantity:
-            try:
-                new_transaction = {
-                    "date": datetime.now(tz=ZoneInfo("America/Indiana/Indianapolis")),
-                    "price": float(price),
-                    "ticker": ticker.upper().strip(),
-                    "quantity": int(quantity),
-                    "transaction_id": len(Stock_Items),
-                }
-                Stock_Items.append(new_transaction)
-            except ValueError:
-                pass
-
-        elif del_item:
-            try:
-                del_item = int(del_item)
-                Stock_Items = [
-                    item for item in Stock_Items if item["transaction_id"]!= del_item
-                ]
-            except ValueError:
-                pass
-        return redirect("/", code=302)
-
+@app.get("/")
+def stocks() -> str:
     return render_template("stocks.html", data=Stock_Items)
 
 
-@app.route("/transactions/<int:transaction_id>", methods=["GET", "POST"])
+@app.post("/transactions/<int:transaction_id>")
+def delete(transaction_id) -> WerkzeugResponse:
+    deleted_id = [
+        item for item in Stock_Items if item["transaction_id"] == transaction_id
+    ][0]
+    Stock_Items.remove(deleted_id)
+    return redirect("/", code=302)
+
+
+@app.post("/transactions")
+def labels():
+    ticker = request.form.get("ticker")
+    price = request.form.get("price")
+    quantity = request.form.get("quantity")
+
+    new_transaction = {
+        "date": datetime.now(tz=ZoneInfo("America/Indiana/Indianapolis")),
+        "price": float(price),
+        "ticker": ticker.upper().strip(),
+        "quantity": int(quantity),
+        "transaction_id": len(Stock_Items),
+    }
+    Stock_Items.append(new_transaction)
+    return redirect("/", code=303)
+
+
+@app.get("/transactions/<int:transaction_id>")
 def transactions(transaction_id) -> str:
-    if 0 <= transaction_id < len(Stock_Items):
-        transaction_details = Stock_Items[transaction_id]
+    transaction_details = next(
+        iter(
+            [item for item in Stock_Items if item["transaction_id"] == transaction_id]
+        ),
+        None,
+    )
+    if transaction_details:
         return render_template(
             "transactions.html",
             transaction=transaction_details,
@@ -113,7 +114,8 @@ def transactions(transaction_id) -> str:
         )
     return abort(404)
 
-def greet(name:str) -> str:
+
+def greet(name: str) -> str:
     return f"hello, {name}"
 
 
