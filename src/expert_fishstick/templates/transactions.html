@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Transactions{{transaction_id}}</title>
+    <title class="highlight">Transactions{{transaction_id}}</title>
     <style>
         table {
             border-collapse: collapse;
@@ -14,16 +14,16 @@
 
         th,
         td {
-            border: 1px solid #ddd;
+            border: 1px solid  #e80d0d;
             padding: 10px;
             text-align: center;
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #e95d5d;
         }
     </style>
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
 
@@ -31,7 +31,7 @@
 
 
 
-    <h1 style="text-align: center;">Transaction #{{transaction_id}} Info</h1>
+    <h1 id="main-title" style="text-align: center;">Transaction #{{transaction_id}} Info</h1>
     <table>
             <tr>
                 <th>Date</th>
@@ -63,7 +63,7 @@
 
     </table>
 
-    <br> <a href="http://127.0.0.1:5000/"> Return Home </a>
+    <br> <a class="footer-text" href="http://127.0.0.1:5000/"> Return Home </a>
 </body>
 
 </html>

@@ -3,6 +3,7 @@
 
 
 <head>
+    <link rel="stylesheet" href="style.css">
     <meta charset="utf-8">
     <title>Stock Items Table</title>
     <style>
@@ -14,20 +15,20 @@
 
         th,
         td {
-            border: 1px solid #ddd;
+            border: 1px solid #e80d0d;
             padding: 10px;
             text-align: center;
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #e95d5d;
         }
     </style>
 </head>
 
 
 <body>
-    <h1 style="text-align: center;">Stock Items</h1>
+    <h1 class="highlight" style="text-align: center;">Stock Items</h1>
     <table>
         <thead>
             <tr>
@@ -51,8 +52,8 @@
         </tbody>
     </table>
 
-    <h2>Add Stock</h2>
-    <form action="/transactions" method="POST">
+    <h2 class="highlight" style="text-align: center;">Add Stock</h2>
+    <form action="/transactions" method="POST" style="text-align: center;">
         <label for="ticker">Ticker:</label>
         <input type="text" id="ticker" name="ticker" required><br>
 

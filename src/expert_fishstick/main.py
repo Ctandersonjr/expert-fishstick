@@ -91,6 +91,7 @@ def labels():
         raise TypeError("Ticker must be 6 characters or fewer")
     if float(price) <= 0:
         raise TypeError("Price must be more than 0")
+
     if quantity <= "0":
         raise TypeError("Quantity must be more than O")
     
