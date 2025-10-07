@@ -83,11 +83,17 @@ def delete(transaction_id) -> WerkzeugResponse:
 
 @app.post("/transactions")
 def labels():
-    ticker = request.form.get("ticker")
+    ticker = request.form.get("ticker","")
     price = request.form.get("price")
     quantity = request.form.get("quantity")
-
-
+    
+    if len(ticker) >= 6:
+        raise TypeError("Ticker must be 6 characters or fewer")
+    if float(price) <= 0:
+        raise TypeError("Price must be more than 0")
+    if quantity <= "0":
+        raise TypeError("Quantity must be more than O")
+    
 
     new_transaction = {
         "date": datetime.now(tz=ZoneInfo("America/Indiana/Indianapolis")),
